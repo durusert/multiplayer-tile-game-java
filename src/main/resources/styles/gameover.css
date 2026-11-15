@@ -1,0 +1,38 @@
+.gameover-root {
+    -fx-background-color: linear-gradient(to bottom right, #171c2c, #26344a, #4b3f2f);
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+
+/* Schwarzes Panel */
+.gameover-panel {
+    -fx-background-color: rgba(0, 0, 0, 0.85);
+    -fx-background-radius: 20;
+    -fx-padding: 40 60 40 60;
+    -fx-effect: dropshadow(gaussian, #000000, 20, 0.4, 0, 6);
+}
+/*Labels*/
+.gameover-label {
+    -fx-text-fill: #E9DBB7; /* neue Label-Farbe */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0.25, 0, 1);
+    -fx-padding: 0 0 0 2;
+}
+/* Back to Main Menu Button */
+.gameover-button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #E9DBB7;
+    -fx-font-size: 16px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-padding: 12 32;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.gameover-button:hover {
+    -fx-background-color: #5a5a5a;
+}

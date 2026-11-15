@@ -1,0 +1,161 @@
+.main-menu-root {
+    -fx-background-color: linear-gradient(to bottom right, #171c2c, #26344a, #4b3f2f);
+}
+
+/* Panel hinter den Eingabefeldern/Buttons */
+.mainmenu-panel {
+    -fx-background-color: rgba(26, 23, 28, 0.78); /* leicht transparent wie Referenz */
+    -fx-background-radius: 16;
+    -fx-padding: 32 40 32 40;
+    -fx-spacing: 12; 
+    -fx-border-color: rgba(42, 38, 45, 0.7); /* softerer Rahmen */
+    -fx-border-radius: 16;
+    -fx-border-width: 1.2; /* dünnerer Rand */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 16, 0.35, 0, 4);
+    -fx-pref-width: 460px;
+    -fx-max-width: 540px;
+    -fx-min-height: 230px;
+    -fx-pref-height: 280px;
+    -fx-max-height: 360px;
+}
+
+/* Gemeinsame Label-Optik im Main Menu (Username, Birthdate) */
+.mainmenu-label {
+    -fx-text-fill: #E9DBB7; /* neue Label-Farbe */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0.25, 0, 1);
+    -fx-padding: 0 0 0 2; 
+}
+
+/* Hauptbutton im Main Menu */
+.mainmenu-button {
+    -fx-background-color: #D5A649; /* angepasstes Highlight-Gold */
+    -fx-text-fill: #2B262C;        /* Button-Textfarbe */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif"; /* Button-Text in Cinzel */
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 28 8 28;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #2C2115, 10, 0.3, 0, 3); /* Shadow in #2C2115 */
+}
+
+.mainmenu-button:hover {
+    -fx-background-color: #e3ba61; 
+}
+
+.mainmenu-button:pressed {
+    -fx-background-color: #bf9240; 
+    -fx-effect: dropshadow(gaussian, #2C2115, 4, 0.3, 0, 1);
+}
+
+/* Username-Textfeld im Panel */
+.mainmenu-textfield {
+    -fx-background-color: rgba(43, 38, 44, 0.72); /* transparentere Inputs */
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 8;
+    -fx-text-fill: #E9DBB7;        /* Eingabetext in heller Panel-Farbe */
+    -fx-prompt-text-fill: #8B6A2B; /* Placeholder-Farbe */
+    -fx-font-family: "Segoe UI", "Inter", "Sans-Serif"; /* Placeholder/Text Font */
+    -fx-padding: 6 10 6 10;
+    -fx-border-color: #D5A649;     /* Input-Border in neuem Goldton */
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.mainmenu-textfield:focused {
+    -fx-border-color: #D5A649;     /* Highlight-Gold */
+    -fx-effect: dropshadow(gaussian, #2C2115, 8, 0.3, 0, 0); /* Glow in Panel-Shadow-Farbe */
+}
+
+/* Birthdate-DatePicker passend zum neuen Theme */
+.mainmenu-datepicker {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-border-color: #D5A649;     /* gleicher Border wie Textfeld */
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+/* Eingabebereich im DatePicker */
+.mainmenu-datepicker > .date-picker-display-node {
+    -fx-background-color: rgba(43, 38, 44, 0.72); /* wie Textfeld */
+    -fx-background-radius: 8 0 0 8;
+    -fx-padding: 6 10 6 10;
+    -fx-text-fill: #E9DBB7;        /* Eingabetext in heller Panel-Farbe */
+    -fx-prompt-text-fill: #8B6A2B; /* Placeholder-Farbe */
+    -fx-font-family: "Segoe UI", "Inter", "Sans-Serif"; /* Placeholder/Text Font */
+}
+
+/* Kalender-Button rechts im DatePicker */
+.mainmenu-datepicker > .arrow-button {
+    -fx-background-color: #2C2115; /* neues "Gold" für Kalender-Button */
+    -fx-background-radius: 0 8 8 0;
+    -fx-padding: 0 10 0 10;
+}
+
+.mainmenu-datepicker > .arrow-button:hover {
+    -fx-background-color: #3a2b1c;
+}
+
+.mainmenu-datepicker > .arrow-button:pressed {
+    -fx-background-color: #21170f;
+}
+
+.mainmenu-datepicker > .arrow-button > .arrow {
+    -fx-background-color: #E9DBB7; /* Icon in heller Panel-Farbe */
+}
+
+/* Fokuszustand für DatePicker (Rahmen + Glow) */
+.mainmenu-datepicker:focused {
+    -fx-border-color: #D5A649;
+    -fx-effect: dropshadow(gaussian, #2C2115, 8, 0.3, 0, 0);
+}
+
+/* Popup-Kalender im neuen Theme */
+.date-picker-popup {
+    -fx-background-color: #1A171C;  /* wie Panel-Hintergrund */
+    -fx-border-color: #2C2115;      /* Rahmenfarbe im neuen Braunton */
+    -fx-border-width: 1;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #1A171C;
+    -fx-text-fill: #E9DBB7;         /* Header-Text in heller Panel-Farbe */
+}
+
+/* Wochentagsnamen und andere Label im Popup */
+.date-picker-popup .label {
+    -fx-text-fill: #E9DBB7;
+}
+
+/* Fehlermeldungs-Label unter dem Connect-Button */
+.mainmenu-error-label {
+    -fx-text-fill: #8f2a2a; /* Fehlermeldungsfarbe */
+    -fx-font-size: 12px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif"; /* gleicher Font wie Username/Birthdate */
+    -fx-padding: 4 0 0 2;
+    -fx-alignment: center; /* Text zentral ausrichten */
+    -fx-text-alignment: center;
+}
+
+/* Zellen der Monatstage */
+.date-cell {
+    -fx-text-fill: #E9DBB7;         /* alle Texte hell */
+    -fx-background-color: #1A171C;  /* Hintergrund wie Panel */
+    -fx-border-color: #D5A649;      /* goldene Ränder um jede Zelle */
+    -fx-border-width: 0.5;
+}
+
+.date-cell:hover {
+    -fx-background-color: #2C2115;  /* Hover in neuem Braunton */
+}
+
+.date-cell:focused,
+.date-cell:selected {
+    -fx-background-color: #2C2115;  /* Auswahl ebenfalls im Braunton */
+    -fx-text-fill: #E9DBB7;
+}

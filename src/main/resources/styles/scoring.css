@@ -1,0 +1,173 @@
+/* Game screen theme — aligned with mainmenu.css and lobby.css.
+	Note: VS Code may show "compatibility" hints for -fx-* properties; JavaFX uses these -fx properties by design. */
+
+.game-root {
+	-fx-background-color: linear-gradient(to bottom right, #171c2c, #26344a, #4b3f2f);
+	-fx-background-size: cover;
+	-fx-background-position: center center;
+}
+
+/* Shared palette (same feel as MainMenu/Lobby) */
+.game-panel {
+	-fx-background-color: #1A171C;
+	-fx-background-radius: 16;
+	-fx-border-color: #D5A649;
+	-fx-border-radius: 16;
+	-fx-border-width: 2;
+	-fx-effect: dropshadow(gaussian, #2C2115, 18, 0.4, 0, 6);
+}
+
+/* Territory header should blend into the surrounding layout (no frame/divider). */
+.game-territory-header {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-radius: 0;
+	-fx-effect: null;
+	-fx-padding: 0;
+}
+
+.game-title {
+	-fx-text-fill: #E9DBB7;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+	-fx-font-weight: bold;
+}
+
+.game-text {
+	-fx-text-fill: #E9DBB7;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+}
+
+.game-accent {
+	-fx-text-fill: #D5A649;
+}
+
+/* Buttons similar to lobby-main-button / mainmenu-button */
+.game-button {
+	-fx-background-color: #D5A649;
+	-fx-text-fill: #2B262C;
+	-fx-font-size: 13px;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+	-fx-font-weight: bold;
+	-fx-background-radius: 10;
+	-fx-padding: 7 18;
+	-fx-cursor: hand;
+	-fx-effect: dropshadow(gaussian, #2C2115, 10, 0.3, 0, 3);
+}
+
+.game-button:hover {
+	-fx-background-color: #e3ba61;
+}
+
+.game-button:pressed {
+	-fx-background-color: #bf9240;
+	-fx-effect: dropshadow(gaussian, #2C2115, 4, 0.3, 0, 1);
+}
+
+.game-button:disabled {
+	-fx-opacity: 0.55;
+}
+
+/* Screen regions */
+.game-header,
+.game-sidebar,
+.game-dashboard,
+.game-bottom {
+	-fx-background-color: transparent;
+}
+
+/* Center board should be the back layer: no frames or filled backgrounds. */
+.game-board {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+/* Make ScrollPane/viewport fully transparent (prevents rounded framed look). */
+.game-board .scroll-pane {
+	-fx-background-color: transparent;
+}
+
+.game-board .scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+.game-header {
+	-fx-padding: 10 12;
+}
+
+.game-header > .label {
+	-fx-text-fill: #E9DBB7;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 6, 0.3, 0, 2);
+}
+
+/* Apply panel look to the big areas */
+.game-sidebar,
+.game-dashboard,
+.game-bottom {
+	-fx-background-color: #1A171C;
+	-fx-border-color: #D5A649;
+	-fx-border-width: 2;
+	-fx-effect: dropshadow(gaussian, #2C2115, 18, 0.4, 0, 6);
+}
+
+.game-sidebar {
+	-fx-background-radius: 16 0 0 0;
+	-fx-border-radius: 16 0 0 0;
+}
+
+.game-dashboard {
+	-fx-background-radius: 0 16 0 0;
+	-fx-border-radius: 0 16 0 0;
+}
+
+.game-bottom {
+	-fx-background-radius: 0 0 16 16;
+	-fx-border-radius: 0 0 16 16;
+}
+
+/* ListView like lobby players list */
+.game-sidebar .list-view {
+	-fx-background-color: transparent;
+}
+
+.game-sidebar .list-cell {
+	-fx-background-color: transparent;
+	-fx-text-fill: #D5A649;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+}
+
+/* Chat area styling (similar to lobby chat) */
+.game-bottom .text-area {
+	-fx-control-inner-background: #2B262C;
+	-fx-text-fill: #D5A649;
+	-fx-prompt-text-fill: #8B6A2B;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+	-fx-font-size: 13px;
+	-fx-background-radius: 10;
+	-fx-border-color: #D5A649;
+	-fx-border-radius: 10;
+	-fx-border-width: 1;
+}
+
+.game-bottom .text-field {
+	-fx-background-color: #2B262C;
+	-fx-text-fill: #D5A649;
+	-fx-prompt-text-fill: #8B6A2B;
+	-fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+	-fx-font-size: 13px;
+	-fx-background-radius: 10;
+	-fx-border-color: #D5A649;
+	-fx-border-radius: 10;
+	-fx-border-width: 1;
+}
+
+/* Make standard separators subtle on dark background */
+.separator .line {
+	-fx-border-color: rgba(213,166,73,0.35);
+}
+
+/* Scoring pills */
+.game-header .label {
+	-fx-text-fill: #E9DBB7;
+}

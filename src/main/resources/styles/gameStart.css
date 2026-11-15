@@ -1,0 +1,43 @@
+
+/*Desing Game Start Button*/
+.GameStart-button {
+    -fx-background-color: #D5A649; /* angepasstes Highlight-Gold */
+    -fx-text-fill: #2B262C;        /* Button-Textfarbe */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif"; /* Button-Text in Cinzel */
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 28 8 28;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #2C2115, 10, 0.3, 0, 3); /* Shadow in #2C2115 */
+}
+
+
+.GameStart-panel {
+    -fx-background-color: #1A171C; /* neuer Panel-Hintergrund */
+    -fx-background-radius: 16;
+    -fx-padding: 32 40 32 40;
+    -fx-spacing: 12;
+    -fx-border-color: #2A262D; /* Panel-Border */
+    -fx-border-radius: 16;
+    -fx-border-width: 2; /* noch dickerer Rand */
+    -fx-effect: dropshadow(gaussian, #2C2115, 18, 0.35, 0, 6); /* Panel-Shadow in #2C2115 */
+    -fx-pref-width: 460px;
+    -fx-max-width: 540px;
+    -fx-min-height: 300px;
+    -fx-pref-height: 320px;
+    -fx-max-height: 340px;
+}
+
+.GameStart-label {
+    -fx-text-fill: #E9DBB7; /* neue Label-Farbe */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0.25, 0, 1);
+    -fx-padding: 0 0 0 2;
+}
+
+.GameStart-button:hover {
+    -fx-background-color: #e3ba61;
+}

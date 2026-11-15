@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.ui.controllers.GameController">
+
+    <stylesheets>
+        @../styles/game.css
+    </stylesheets>
+
+    <BorderPane fx:id="mainLayout" styleClass="game-root"
+                AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+
+        <!-- Top: compact status bar -->
+        <top>
+            <HBox fx:id="topBar" spacing="12" alignment="CENTER_LEFT" styleClass="game-header" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="10" right="12" bottom="10" left="12" />
+                </padding>
+
+                <Label text="Isle of Skye" styleClass="game-title" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label fx:id="roundLabel" text="Runde: -" styleClass="game-text" />
+                <Label text="|" styleClass="game-accent" />
+                <Label fx:id="phaseLabel" text="Phase: -" styleClass="game-text" />
+                <Label text="|" styleClass="game-accent" />
+                <Label fx:id="coinsLabel" text="coins: -" styleClass="game-text" />
+                <Label fx:id="coinsDeltaLabel" text="" visible="false" managed="false" styleClass="gold-delta" />
+
+                <!-- Active player label hidden - status now shown in player list -->
+                <Label fx:id="activePlayerLabel" text="Active: -" visible="false" managed="false" styleClass="game-text" />
+                <Label fx:id="phaseStatusLabel" text="" visible="false" managed="false" styleClass="phase-status-label" />
+                
+                <Region minWidth="10" />
+
+                <!-- Music volume (same UX as Lobby) -->
+                <StackPane alignment="CENTER_RIGHT" pickOnBounds="false">
+                    <children>
+                        <Button fx:id="settingsButton" text="🔊" onAction="#onToggleSettings" styleClass="volume-button" />
+                        <HBox fx:id="settingsPanel" visible="false" managed="false" spacing="10" styleClass="settings-panel" pickOnBounds="false"
+                              StackPane.alignment="CENTER_RIGHT">
+                            <StackPane.margin>
+                                <Insets top="0" right="46" bottom="0" left="0" />
+                            </StackPane.margin>
+                            <children>
+                                <Slider fx:id="musicVolumeSlider" min="0.0" max="1.0" blockIncrement="0.05" majorTickUnit="0.25" />
+                                <Label fx:id="musicVolumeValue" text="0" styleClass="volume-value" />
+                            </children>
+                        </HBox>
+                    </children>
+                </StackPane>
+
+                <Button fx:id="gameboardButton" text="Gameboard" styleClass="game-button" onAction="#onShowGameboard" />
+                <Button fx:id="leaveButton" text="Leave" styleClass="game-button" onAction="#onLeave" />
+            </HBox>
+        </top>
+
+        <!-- Left: players + scoring -->
+        <left>
+            <VBox spacing="10" styleClass="game-sidebar" prefWidth="260" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="14" right="12" bottom="14" left="12" />
+                </padding>
+
+                <Label text="player" styleClass="game-title" />
+                <ListView fx:id="playersList" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </left>
+
+        <!-- Center: state with overlay controls -->
+        <center>
+            <StackPane fx:id="boardRoot" styleClass="game-board" BorderPane.alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity">
+
+                <!-- Board -->
+                <ScrollPane fx:id="boardScrollPane"
+                            fitToWidth="true"
+                            fitToHeight="true"
+                            pannable="true"
+                            hbarPolicy="NEVER"
+                            vbarPolicy="NEVER"
+                            styleClass="board-scroll">
+                    <content>
+                        <GridPane fx:id="territoryGrid"
+                                  alignment="CENTER"
+                                  hgap="4"
+                                  vgap="4"
+                                  styleClass="board-grid">
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20" />
+                            </padding>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+
+                <!-- Territory header (OVERLAY) removed: duplicate label not needed -->
+
+                <!-- Recenter state (OVERLAY) -->
+                <Button fx:id="recenterBoardButton"
+                        text="Center"
+                        StackPane.alignment="TOP_RIGHT"
+                        styleClass="game-button"
+                        onAction="#onRecenterBoard">
+                    <StackPane.margin>
+                        <Insets top="10" right="14" bottom="0" left="0" />
+                    </StackPane.margin>
+                </Button>
+
+                <!-- Back to own territory (only visible when spectating another player) -->
+                <Button fx:id="backToMyTerritoryButton"
+                        text="Back to my territory"
+                        StackPane.alignment="TOP_LEFT"
+                        styleClass="game-button">
+                    <StackPane.margin>
+                        <Insets top="10" right="0" bottom="0" left="14" />
+                    </StackPane.margin>
+                </Button>
+
+                <!-- Finish build (OVERLAY) -->
+                <Button fx:id="finishBuildButton"
+                        text="Finish"
+                        visible="false"
+                        managed="false"
+                        StackPane.alignment="BOTTOM_CENTER"
+                        styleClass="game-button"
+                        onAction="#onFinishBuild">
+                    <StackPane.margin>
+                        <Insets top="0" right="0" bottom="12" left="0" />
+                    </StackPane.margin>
+                </Button>
+
+            </StackPane>
+        </center>
+
+
+
+        <!-- Right: action panel (phase-driven) -->
+        <right>
+            <BorderPane fx:id="gameDashboard" styleClass="game-dashboard" prefWidth="360" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="14" right="12" bottom="14" left="12" />
+                </padding>
+
+                <center>
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                                styleClass="dashboard-scroll"
+                                style="-fx-background-color: transparent;">
+                        <content>
+                            <VBox spacing="12" styleClass="dashboard-stone-pane">
+                                <Label text="actions" styleClass="game-title" />
+
+                                <!-- Phase instruction card (snapshot-style) -->
+                                <VBox spacing="10" styleClass="game-instruction-card">
+                                    <children>
+                                        <Label fx:id="statusLabel" text="waiting for game status…" wrapText="true" styleClass="game-text" />
+
+                                        <!-- Optional inline scoring info (only used in SCORING phase) -->
+                                        <VBox fx:id="scoringList"
+                                              spacing="6"
+                                              visible="false"
+                                              managed="false"
+                                              styleClass="game-scoring-inline" />
+                                    </children>
+                                </VBox>
+                                <Label fx:id="handTitleLabel" text="Your Tiles" styleClass="game-text" />
+                                <!-- Submit Prices button hidden - now in bottom action bar -->
+                                <Button fx:id="submitPricesButton" text="Submit Prices" styleClass="game-button game-button-compact" onAction="#onSubmitPrices" visible="false" managed="false" />
+
+                                <!-- Draw button: visible only during DRAW phase -->
+                                <Button fx:id="drawButton" text="Draw your tiles" styleClass="game-button" onAction="#onDrawButton" visible="false" managed="false" />
+
+                                <!-- Buy/Pass (only visible in BUY phase via controller) -->
+                                <HBox spacing="8">
+                                    <Button fx:id="buyButton" text="Buy" styleClass="game-button" onAction="#onBuy" />
+                                    <Button fx:id="passButton" text="Pass" styleClass="game-button" onAction="#onPass" />
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </center>
+
+                <bottom>
+                    <VBox spacing="10" alignment="CENTER">
+                        <Separator />
+                        <!-- Scoring tiles preview (2x2 block) -->
+                        <VBox spacing="6" alignment="CENTER" styleClass="scoring-preview">
+                            <Label text="Active Scoring Tiles" styleClass="game-text" />
+                            <GridPane fx:id="scoringPreviewGrid" hgap="10" vgap="10" alignment="CENTER">
+                                <children>
+                                    <StackPane fx:id="scoringPreviewSlotA" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="scoring-tile-slot inactive">
+                                        <ImageView fx:id="scoringPreviewTileA" preserveRatio="true" fitWidth="180" fitHeight="180" />
+                                    </StackPane>
+                                    <StackPane fx:id="scoringPreviewSlotB" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="scoring-tile-slot inactive">
+                                        <ImageView fx:id="scoringPreviewTileB" preserveRatio="true" fitWidth="180" fitHeight="180" />
+                                    </StackPane>
+                                    <StackPane fx:id="scoringPreviewSlotC" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="scoring-tile-slot inactive">
+                                        <ImageView fx:id="scoringPreviewTileC" preserveRatio="true" fitWidth="180" fitHeight="180" />
+                                    </StackPane>
+                                    <StackPane fx:id="scoringPreviewSlotD" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="scoring-tile-slot inactive">
+                                        <ImageView fx:id="scoringPreviewTileD" preserveRatio="true" fitWidth="180" fitHeight="180" />
+                                    </StackPane>
+                                </children>
+                            </GridPane>
+                        </VBox>
+                    </VBox>
+                </bottom>
+            </BorderPane>
+        </right>
+
+        <!-- Bottom: hand + market (purchase) -->
+        <bottom>
+            <HBox fx:id="bottomBar" spacing="12" styleClass="game-bottom" BorderPane.alignment="CENTER" prefHeight="344" minHeight="344" maxHeight="344">
+                <padding>
+                    <Insets top="12" right="12" bottom="12" left="12" />
+                </padding>
+
+                <!-- Left: dedicated chat slot (moved from right) -->
+                <StackPane fx:id="chatDock" prefWidth="340" minWidth="340" maxWidth="340" prefHeight="320" minHeight="320" maxHeight="320" alignment="BOTTOM_LEFT" pickOnBounds="false">
+                    <StackPane fx:id="chatOverlay"
+                               managed="true"
+                               visible="true"
+                               pickOnBounds="false"
+                               maxWidth="340"
+                               maxHeight="Infinity">
+                        <VBox spacing="8" styleClass="game-chat-overlay" maxHeight="Infinity">
+                            <children>
+                                <Label text="Chat" styleClass="game-title" />
+                                <TextArea fx:id="chatArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />
+                                <HBox spacing="8">
+                                    <TextField fx:id="messageField" promptText="Nachricht…" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="sendButton" text="Send" styleClass="game-button" onAction="#onSend" defaultButton="true" />
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </StackPane>
+                </StackPane>
+
+                <!-- Center: Hand + Market share space via tabs (centered under the state) -->
+                <HBox spacing="0" alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <TabPane fx:id="bottomTabs" tabClosingPolicy="UNAVAILABLE" maxWidth="980" prefHeight="320" minHeight="320" maxHeight="320" styleClass="bottom-tabs">
+                            <tabs>
+                                <Tab text="Your Tiles">
+                                    <content>
+                                        <VBox spacing="10">
+                                            <HBox spacing="12" alignment="CENTER">
+                                                <Label fx:id="handHintLabel" text="" styleClass="game-text" />
+                                            </HBox>
+                                            <FlowPane fx:id="handPane" hgap="10" vgap="10" prefWrapLength="900" alignment="CENTER"
+                                                      prefHeight="260" minHeight="260" maxHeight="260" />
+                                        </VBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="BUY">
+                                    <content>
+                                        <HBox spacing="15" alignment="CENTER">
+                                            <FlowPane fx:id="marketPane" hgap="10" vgap="10" prefWrapLength="700" alignment="CENTER"
+                                                      prefHeight="260" minHeight="260" maxHeight="260" HBox.hgrow="ALWAYS" />
+                                            <!-- Continue Button (ends Buy phase) -->
+                                            <VBox fx:id="buyActionButtonsContainer" spacing="10" alignment="CENTER" minWidth="120">
+                                                <HBox.margin>
+                                                    <Insets top="0" right="80" bottom="0" left="0" />
+                                                </HBox.margin>
+                                                <Button fx:id="continueButton" text="Continue" 
+                                                        styleClass="confirm-prices-button" 
+                                                        minWidth="170" prefWidth="170" minHeight="60" prefHeight="60"
+                                                        onAction="#onContinueBuyPhase" />
+                                            </VBox>
+                                        </HBox>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="Scoring Tiles">
+                                    <content>
+                                        <VBox spacing="10">
+                                            <HBox spacing="12" alignment="CENTER" />
+                                            <ScrollPane fitToWidth="true" fitToHeight="true" pannable="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                                                        styleClass="transparent-scroll"
+                                                        prefHeight="260" minHeight="260" maxHeight="260">
+                                                <content>
+                                                    <FlowPane fx:id="handPane2" hgap="10" vgap="10" prefWrapLength="900" alignment="CENTER" />
+                                                </content>
+                                            </ScrollPane>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+
+
+
+    <StackPane fx:id="scoringBoardOverlay" visible="false" managed="false" styleClass="scoring-board-overlay"
+               AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <ImageView fx:id="scoringBoardImage" preserveRatio="false" />
+        <Pane fx:id="scoringBoardOverlayPane" pickOnBounds="false" />
+        <HBox fx:id="scoringBoardRoundPlatesBox" alignment="BOTTOM_LEFT" spacing="62"
+              translateX="150" translateY="150">
+            <StackPane prefWidth="80" prefHeight="80">
+                <Circle fx:id="scoringBoardRoundMarker" radius="22" fill="black" stroke="black" />
+            </StackPane>
+            <StackPane prefWidth="80" prefHeight="80" />
+            <StackPane prefWidth="80" prefHeight="80" />
+            <StackPane prefWidth="80" prefHeight="80" />
+            <StackPane prefWidth="80" prefHeight="80" />
+            <StackPane prefWidth="80" prefHeight="80" />
+        </HBox>
+        <HBox fx:id="scoringBoardTilesBox" alignment="TOP_CENTER" spacing="75" translateX="15" translateY="230">
+            <ImageView fx:id="scoringBoardTileA" fitWidth="200" fitHeight="200" preserveRatio="true" />
+            <ImageView fx:id="scoringBoardTileB" fitWidth="200" fitHeight="200" preserveRatio="true" />
+            <ImageView fx:id="scoringBoardTileC" fitWidth="200" fitHeight="200" preserveRatio="true" />
+            <ImageView fx:id="scoringBoardTileD" fitWidth="200" fitHeight="200" preserveRatio="true" />
+        </HBox>
+        <Button fx:id="closeGameboardButton" text="Game" styleClass="game-button"
+                StackPane.alignment="TOP_RIGHT" onAction="#onCloseGameboard">
+            <StackPane.margin>
+                <Insets top="18" right="20" bottom="0" left="0" />
+            </StackPane.margin>
+        </Button>
+    </StackPane>
+
+</AnchorPane>

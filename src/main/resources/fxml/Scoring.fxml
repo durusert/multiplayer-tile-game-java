@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.ui.controllers.GameController"
+            styleClass="game-root"
+            stylesheets="@../styles/game.css" >
+
+
+
+    <!-- Top: compact status bar -->
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="game-header" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" right="12" bottom="10" left="12" />
+            </padding>
+
+            <Label text="Isle of Skye" styleClass="game-title" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Label fx:id="roundLabel" text="Runde: -" styleClass="game-text" />
+            <Label text="|" styleClass="game-accent" />
+            <Label fx:id="phaseLabel" text="Phase: -" styleClass="game-text" />
+            <Label text="|" styleClass="game-accent" />
+            <Label fx:id="coinsLabel" text="Münzen: -" styleClass="game-text" />
+
+            <Region minWidth="10" />
+            <Button fx:id="leaveButton" text="Leave" styleClass="game-button" onAction="#onLeave" />
+        </HBox>
+    </top>
+
+    <!-- Left: players + scoring -->
+    <left>
+        <VBox spacing="10" styleClass="game-sidebar" prefWidth="260" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="14" right="12" bottom="14" left="12" />
+            </padding>
+
+            <Label text="Players" styleClass="game-title" />
+            <ListView fx:id="playersList" VBox.vgrow="ALWAYS" />
+
+            <Separator />
+
+            <Label text="Scoring" styleClass="game-title" />
+            <HBox spacing="8">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Current" styleClass="game-text" />
+                    <HBox fx:id="currentScoringTilesBox" spacing="6" />
+                </VBox>
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Next" styleClass="game-text" />
+                    <HBox fx:id="nextScoringTilesBox" spacing="6" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- Center: state with overlay controls -->
+    <center>
+        <StackPane styleClass="game-board" BorderPane.alignment="CENTER">
+
+            <!-- Empty scoring area -->
+            <Region prefWidth="600"
+                    prefHeight="300"
+                    style="-fx-background-color: rgba(0,0,0,0.85);
+                           -fx-background-radius: 18;"/>
+
+            <!-- Scoring header -->
+                <Label text="Scoring" styleClass="scoring-title" StackPane.alignment="TOP_CENTER"/>
+
+
+
+
+
+            <!-- Rotation popover removed: handled via drag UI in GameController -->
+
+        </StackPane>
+    </center>
+
+    <!-- Right: action panel (phase-driven) -->
+    <right>
+        <VBox spacing="12" styleClass="game-dashboard" prefWidth="360" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="14" right="12" bottom="14" left="12" />
+            </padding>
+
+            <Label text="Actions" styleClass="game-title" />
+
+            <Label fx:id="statusLabel" text="waiting for game status…" wrapText="true" styleClass="game-text" />
+
+            <VBox fx:id="scoringList"
+                  spacing="6"
+                  visible="false"
+                  managed="false"
+                  style="-fx-padding: 8; -fx-background-color: rgba(0,0,0,0.15); -fx-background-radius: 10;" />
+
+            <HBox spacing="8">
+                <Button fx:id="buyButton" text="Buy" styleClass="game-button" onAction="#onBuy" />
+                <Button fx:id="passButton" text="Pass" styleClass="game-button" onAction="#onPass" />
+            </HBox>
+
+            <Label fx:id="handTitleLabel" text="Your Tiles" styleClass="game-text" />
+            <Button fx:id="submitPricesButton" text="Submit Prices" styleClass="game-button" onAction="#onSubmitPrices" />
+
+            <Separator />
+
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Chat" styleClass="game-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="chatToggleButton" text="▼" styleClass="game-button" onAction="#onToggleChat" />
+            </HBox>
+
+            <VBox fx:id="chatBox" spacing="8">
+                <TextArea fx:id="chatArea" editable="false" wrapText="true" prefRowCount="6" />
+                <HBox spacing="8">
+                    <TextField fx:id="messageField" promptText="Nachricht…" HBox.hgrow="ALWAYS" />
+                    <Button fx:id="sendButton" text="Send" styleClass="game-button" onAction="#onSend" defaultButton="true" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom: hand + market (purchase) -->
+    <bottom>
+        <VBox spacing="10" styleClass="game-bottom" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12" />
+            </padding>
+
+            <TabPane fx:id="bottomTabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" styleClass="bottom-tabs">
+                <tabs>
+                    <Tab text="Your Tiles">
+                        <content>
+                            <VBox spacing="10">
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <Label text="Your Tiles" styleClass="game-title" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="handHintLabel" text="" styleClass="game-text" />
+                                </HBox>
+                                <ScrollPane fitToWidth="true" prefHeight="220"
+                                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                                    <content>
+                                        <FlowPane fx:id="handPane" hgap="10" vgap="10" prefWrapLength="900" />
+                                    </content>
+                                </ScrollPane>
+                            </VBox>
+                        </content>
+                    </Tab>
+
+                    <Tab text="BUY">
+                        <content>
+                            <VBox spacing="10">
+                                <HBox spacing="12" alignment="CENTER_LEFT">
+                                    <Label text="Buy Tiles" styleClass="game-title" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="marketTitleLabel" text="Markt" styleClass="game-text" />
+                                </HBox>
+                                <ScrollPane fitToWidth="true" prefHeight="220"
+                                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                                    <content>
+                                        <FlowPane fx:id="marketPane" hgap="10" vgap="10" prefWrapLength="900" />
+                                    </content>
+                                </ScrollPane>
+                            </VBox>
+                        </content>
+                    </Tab>
+                </tabs>
+            </TabPane>
+        </VBox>
+    </bottom>
+
+</BorderPane>

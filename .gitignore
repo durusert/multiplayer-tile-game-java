@@ -1,0 +1,21 @@
+# IDEs
+.idea/
+.vscode/
+*.iml
+out/
+
+# Maven and generated distributions
+target/
+jars/
+*.jar
+
+# Logs and local runtime data
+logs/
+*.log
+
+# Operating systems
+.DS_Store
+Thumbs.db
+
+# Local tooling
+tools/

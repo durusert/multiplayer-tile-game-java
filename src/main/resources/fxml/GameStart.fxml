@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+
+
+<StackPane styleClass="main-menu-root"
+           stylesheets="/styles/gameStart.css"
+           xmlns="http://javafx.com/javafx/24"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="frontend.ui.controllers.GameStartController">
+
+
+    <!-- Hintergrund: Board -->
+    <children>
+        <ImageView fx:id="boardImage" preserveRatio="true" smooth="true" />
+
+        <!-- Overlay für Spielfiguren, Marker und Klickbereiche-->
+        <Pane fx:id="boardOverlayPane" pickOnBounds="false" />
+
+        <!--Rundenmarker -->
+        <HBox fx:id="roundPlatesBox"
+              alignment="BOTTOM_LEFT"
+              spacing="62"
+              translateX = "150"
+              translateY="150">
+
+            <children>
+                <!-- Runde 1 -->
+                <StackPane prefWidth="80" prefHeight="80">
+                    <Circle fx:id="roundMarker"
+                            radius="22"
+                            fill="black"
+                            stroke="black"/>
+                </StackPane>
+                <!-- Runde 2 -->
+                <StackPane prefWidth="80" prefHeight="80"/>
+                <!-- Runde 3 -->
+                <StackPane prefWidth="80" prefHeight="80"/>
+                <!-- Runde 4 -->
+                <StackPane prefWidth="80" prefHeight="80"/>
+                <!-- Runde 5 -->
+                <StackPane prefWidth="80" prefHeight="80"/>
+            </children>
+        </HBox>
+
+
+
+        <!-- Scoring Tiles A–D -->
+        <HBox fx:id="scoringTilesBox"
+              alignment="TOP_CENTER"
+              spacing="75"
+              translateX="15"
+              translateY="230">
+
+            <children>
+                <ImageView fx:id="scoringTileA"
+                           fitWidth="200" fitHeight="200"
+                           preserveRatio="true" />
+                <ImageView fx:id="scoringTileB"
+                           fitWidth="200" fitHeight="200"
+                           preserveRatio="true" />
+                <ImageView fx:id="scoringTileC"
+                           fitWidth="200" fitHeight="200"
+                           preserveRatio="true" />
+                <ImageView fx:id="scoringTileD"
+                           fitWidth="200" fitHeight="200"
+                           preserveRatio="true" />
+            </children>
+        </HBox>
+
+        <!-- Schwarzer Banner für Tiles wurden ausgeteilt-Information + Spiel Start -->
+        <StackPane alignment="CENTER">
+            <children>
+
+                <!-- Schwarzes Rechteck -->
+                <Rectangle width="400"
+                           height="70"
+                           arcWidth="20"
+                           arcHeight="20"
+                           translateY = "100"
+                           styleClass="GameStart-panel"/>
+
+                <!-- Text auf dem Rechteck und Button -->
+                <VBox alignment="CENTER" spacing="8">
+                    <children>
+                        <Label fx:id="titleLabel" styleClass="GameStart-label" text="Scoring Tiles were laid" translateY="100"/>
+                        <Button fx:id="startGameButton"
+                                translateY="100"
+                                text="Game Start"
+                                styleClass="GameStart-button"
+                                onAction="#onStartGame"/>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+
+
+
+
+    </children>
+</StackPane>

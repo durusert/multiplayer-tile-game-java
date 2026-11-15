@@ -1,0 +1,183 @@
+@startuml
+' === Enums ===
+enum GameState {
+  LOBBY
+  RUNNING
+  FINISHED
+}
+
+enum RoundPhase {
+  INCOME
+  DRAW_SET_PRICES
+  DISCARD
+  BUY
+  BUILD
+  SCORING
+}
+
+enum EdgeType {
+  WATER
+  MOUNTAIN
+  PASTURE
+}
+
+enum TileIcon {
+  SHEEP
+  CATTLE
+  BARREL
+  SHIP
+  FARM
+  LIGHTHOUSE
+  BROCH
+  SCROLL
+}
+
+' === Interfaces ===
+interface ScoringRule {
+  + calculatePoints(player : Player, game : Game) : int
+}
+
+' === Core Classes ===
+class Server {
+  - game : Game
+  - maxPlayers : int
+  --
+  + createGame(maxPlayers : int) : void
+  + registerPlayer(username : String) : Player
+  + startGame() : void
+  + getGame() : Game
+}
+
+class Game {
+  - currentRoundIndex : int
+  - maxRounds : int
+  - state : GameState
+  - players : List<Player>
+  - rounds : List<Round>
+  - scoringTiles : List<ScoringTile>
+  - bag : TileBag
+  - market : Market
+  --
+  + start() : void
+  + addPlayer(player : Player) : void
+  + getCurrentRound() : Round
+  + nextPhase() : void
+}
+
+class Round {
+  - roundNumber : int
+  - phase : RoundPhase
+  - activeScoringTiles : List<ScoringTile>
+  --
+  + advancePhase() : void
+}
+
+class Player {
+  - playerId : String
+  - name : String
+  - gold : int
+  - victoryPoints : int
+  - isStartingPlayer : boolean
+  --
+  + addGold(amount : int) : void
+  + addVictoryPoints(amount : int) : void
+  + drawTiles(count : int, bag : TileBag) : List<Tile>
+  + placeTile(tile : Tile, x : int, y : int, rotation : int) : void
+}
+
+class ClanTerritory {
+  - placements : Collection<TilePlacement>
+  --
+  + getTilePlacements() : Collection<TilePlacement>
+}
+
+class TilePlacement {
+  - x : int
+  - y : int
+  - rotation : int
+  - tile : Tile
+}
+
+class Tile {
+  - tileId : int
+  - edges : EdgeType[4]
+  - icons : Set<TileIcon>
+  - hasCastle : boolean
+  - isStartTile : boolean
+}
+
+class TileBag {
+  - tiles : List<Tile>
+  --
+  + draw(count : int) : List<Tile>
+  + putBack(tile : Tile) : void
+}
+
+class Market {
+  - offers : List<TileOffer>
+  --
+  + addOffer(offer : TileOffer) : void
+  + getOffers() : List<TileOffer>
+}
+
+class TileOffer {
+  - price : int
+  - discarded : boolean
+  - seller : Player
+  - buyer : Player
+  - tile : Tile
+}
+
+class ScoringTile {
+  - id : String
+  - description : String
+  - activeRounds : List<Integer>
+}
+
+' === Relationships ===
+
+' Server manages exactly one local Game
+Server *-- "1" Game
+
+' Game aggregates players, rounds, scoring tiles
+Game "1" o-- "*" Player
+Game "1" o-- "*" Round
+Game "1" o-- "4" ScoringTile
+
+' Game composes bag and market
+Game "1" *-- "1" TileBag
+Game "1" *-- "1" Market
+
+' Round uses scoring tiles (subset of game's tiles)
+Round o-- "*" ScoringTile
+
+' Player owns exactly one territory (composition)
+Player *-- "1" ClanTerritory
+
+' Player references tiles (castle + temporary)
+Player "1" -- "1" Tile : castleTile
+Player "1" -- "*" Tile : temporaryTiles
+
+' Territory owns placements (composition)
+ClanTerritory *-- "*" TilePlacement
+
+' Each placement references exactly one tile
+TilePlacement "1" -- "1" Tile
+
+' Market owns tile offers (composition)
+Market *-- "*" TileOffer
+
+' Each offer references seller, optional buyer and one tile
+TileOffer "1" -- "1" Player : seller
+TileOffer "0..1" -- "1" Player : buyer
+TileOffer "1" -- "1" Tile
+
+' ScoringTile implements ScoringRule (inheritance / realization)
+ScoringRule <|.. ScoringTile
+
+' === Enum dependencies (connect enums with belonging classes) ===
+Game  ..> GameState
+Round ..> RoundPhase
+Tile  ..> EdgeType
+Tile  ..> TileIcon
+@enduml

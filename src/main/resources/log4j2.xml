@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level %c{1} - %msg%n"/>
+        </Console>
+
+        <!-- Rolling Logfile mit Rotation + Limit -->
+        <RollingFile name="File"
+                     fileName="logs/isle-of-skye.log"
+                     filePattern="logs/isle-of-skye-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %c - %msg%n"/>
+
+            <Policies>
+                <!-- rolle bei 10MB -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <!-- zusätzlich täglich -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+
+            <!-- max. 20 Archive pro Tag (Index %i) -->
+            <DefaultRolloverStrategy max="20">
+                <!-- lösche Archive älter als 14 Tage -->
+                <Delete basePath="logs" maxDepth="1">
+                    <IfFileName glob="isle-of-skye-*.log.gz"/>
+                    <IfLastModified age="14d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="frontend.ui.controllers.GameController" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="backend.logic.ScoringLogic" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="backend.network.MainServer" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <!-- Globales Logging-Level: debug/info/warn/error -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

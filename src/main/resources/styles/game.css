@@ -1,0 +1,1125 @@
+/* Game screen theme — aligned with mainmenu.css and lobby.css.
+   Note: VS Code may show "compatibility" hints for -fx-* properties; JavaFX uses these -fx properties by design. */
+
+/* --- Root/background --- */
+.game-root {
+    /* No image background in-game; use a solid dark gray that fits the HUD. */
+    -fx-background-image: none;
+    /* Slightly warmer/lighter than #14171c to avoid a monotonous look (subtle gold/beige tint). */
+    -fx-background-color: #2a241a;
+}
+
+/* Shared palette */
+.game-title {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+}
+
+.game-text {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+}
+
+.game-accent {
+    -fx-text-fill: #D5A649;
+}
+
+.game-panel {
+    -fx-background-color: rgba(20, 26, 36, 0.92);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 18, 0.35, 0, 6);
+}
+
+/* Buttons */
+.game-button {
+    -fx-background-color:
+        linear-gradient(to bottom, #FDFDFE 0%, #E7E7EC 40%, #C9C9D0 65%, #B0B0BA 100%),
+        rgba(0, 0, 0, 0.18);
+    -fx-text-fill: #121622;
+    -fx-font-size: 13px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-background-radius: 10, 9;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 7 18;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 10, 0.25, 0, 3);
+}
+
+.game-button:hover {
+    -fx-background-color:
+        linear-gradient(to bottom, #FFFFFF 0%, #EEEEF2 40%, #D3D3DA 65%, #BABAC4 100%),
+        rgba(0, 0, 0, 0.18);
+}
+
+.game-button:pressed {
+    -fx-background-color:
+        linear-gradient(to bottom, #E6E6EC 0%, #CFCFD7 50%, #AFAFBA 100%),
+        rgba(0, 0, 0, 0.22);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 4, 0.25, 0, 1);
+}
+
+.game-button:disabled {
+    -fx-opacity: 0.55;
+}
+
+.game-button-compact {
+    -fx-padding: 6 14;
+    -fx-font-size: 12px;
+}
+
+.game-icon-button {
+    -fx-padding: 6 10;
+    -fx-min-width: 36px;
+    -fx-min-height: 34px;
+}
+
+/* Overlay controls on the board (Center / Back to my territory / Finish) */
+#recenterBoardButton.game-button.game-icon-button {
+    -fx-min-height: 34px;
+}
+
+#backToMyTerritoryButton.game-button.game-button-compact {
+    -fx-min-height: 34px;
+}
+
+/* Finish button should match standard game buttons (no special styling). */
+.game-root #finishBuildButton.game-button.finish-build-button {
+    /* Intentionally left empty to inherit .game-button styles. */
+}
+
+/* Regions */
+.game-header,
+.game-sidebar,
+.game-dashboard,
+.game-bottom {
+    -fx-background-color: transparent;
+}
+
+.game-sidebar,
+.game-dashboard,
+.game-bottom {
+    -fx-background-color: rgba(18, 22, 28, 0.92);
+    -fx-border-color: rgba(233, 219, 183, 0.16);
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 18, 0.35, 0, 6);
+}
+
+.game-sidebar {
+    -fx-background-radius: 16 0 0 0;
+    -fx-border-radius: 16 0 0 0;
+}
+
+.game-dashboard {
+    -fx-background-radius: 0 16 0 0;
+    -fx-border-radius: 0 16 0 0;
+}
+
+/* Right panel stone-like surface */
+.dashboard-stone-pane {
+    -fx-background-color:
+        radial-gradient(center 20% 20%, radius 60%, rgba(120,120,120,0.18), transparent 70%),
+        radial-gradient(center 70% 30%, radius 55%, rgba(90,90,90,0.22), transparent 72%),
+        radial-gradient(center 40% 75%, radius 65%, rgba(140,140,140,0.15), transparent 74%),
+        linear-gradient(to bottom, rgba(70, 74, 80, 0.65) 0%, rgba(48, 52, 58, 0.75) 45%, rgba(34, 38, 44, 0.85) 100%);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(233, 219, 183, 0.08);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+}
+
+.dashboard-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Bottom-right chat overlay (always visible) */
+.game-chat-overlay {
+    -fx-background-color: rgba(18, 22, 28, 0.92);
+    -fx-border-color: rgba(233, 219, 183, 0.16);
+    -fx-border-width: 1;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-padding: 10;
+    -fx-pref-width: 340;
+    -fx-max-width: 340;
+    -fx-max-height: 9999;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 18, 0.35, 0, 6);
+}
+
+.game-chat-overlay .text-area,
+.game-chat-overlay .text-field {
+    -fx-background-color: rgba(10, 14, 20, 0.70);
+    -fx-text-fill: rgba(233, 219, 183, 0.92);
+    -fx-border-color: rgba(233, 219, 183, 0.14);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.game-bottom {
+    -fx-background-radius: 0 0 16 16;
+    -fx-border-radius: 0 0 16 16;
+    -fx-pref-height: 344;
+    -fx-min-height: 344;
+    -fx-max-height: 344;
+}
+
+.game-board {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ListView */
+.game-sidebar .list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+}
+
+.game-sidebar .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(233, 236, 242, 0.78);
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+}
+
+.game-sidebar .list-view .viewport {
+    -fx-background-color: transparent;
+}
+
+.game-sidebar .list-view .scroll-bar,
+.game-sidebar .list-view .scroll-bar .track,
+.game-sidebar .list-view .scroll-bar .thumb {
+    -fx-background-color: transparent;
+}
+
+/* Player cards (left sidebar) */
+.game-sidebar .list-cell.player-card-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 6 0;
+}
+
+.player-card {
+    -fx-background-color: rgba(10, 14, 20, 0.72);
+    -fx-background-radius: 14;
+    -fx-padding: 12 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 16, 0.25, 0, 6);
+}
+
+.player-card-name {
+    -fx-text-fill: rgba(233, 236, 242, 0.92);
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.player-card-active-label {
+    -fx-text-fill: rgba(76, 225, 138, 0.95);
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.95;
+}
+
+.player-card-active-dot {
+    -fx-min-width: 7px;
+    -fx-pref-width: 7px;
+    -fx-max-width: 7px;
+    -fx-min-height: 7px;
+    -fx-pref-height: 7px;
+    -fx-max-height: 7px;
+    -fx-background-color: rgba(76, 225, 138, 0.95);
+    -fx-background-radius: 999;
+    -fx-effect: dropshadow(gaussian, rgba(76,225,138,0.35), 10, 0.25, 0, 0);
+}
+
+.player-card-score {
+    -fx-text-fill: rgba(233, 236, 242, 0.88);
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 0 2 0 0;
+}
+
+.player-card-you-badge {
+    -fx-background-color: rgba(227, 191, 85, 0.95);
+    -fx-text-fill: rgba(12, 14, 18, 0.95);
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 2 8;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255,255,255,0.22);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+/* View Territory Button */
+.view-territory-button {
+    -fx-background-color: rgba(40, 50, 65, 0.85);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(160, 130, 95, 0.4);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0.3, 0, 2);
+}
+
+.view-territory-button:hover {
+    -fx-background-color: rgba(55, 70, 90, 1);
+    -fx-border-color: rgba(227, 191, 85, 0.7);
+    -fx-effect: dropshadow(gaussian, rgba(227,191,85,0.3), 12, 0.4, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Player Card Status Labels (under player name in list) */
+.player-card-status-label {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 10px;
+    -fx-font-weight: normal;
+    -fx-padding: 2 0 0 0;
+}
+
+.player-card-status-waiting {
+    -fx-text-fill: rgba(233, 219, 183, 0.55);
+}
+
+.player-card-status-ready {
+    -fx-text-fill: rgba(227, 191, 85, 0.95);
+    -fx-font-weight: bold;
+}
+
+/* Keep selection from painting a default blue background on our cards */
+.game-sidebar .list-cell.player-card-cell:selected {
+    -fx-background-color: transparent;
+}
+
+/* Chat */
+.game-bottom .text-area {
+    -fx-control-inner-background: rgba(10, 14, 20, 0.92);
+    -fx-text-fill: rgba(233, 236, 242, 0.86);
+    -fx-prompt-text-fill: rgba(233, 236, 242, 0.45);
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 13px;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.game-bottom .text-field {
+    -fx-background-color: rgba(10, 14, 20, 0.92);
+    -fx-text-fill: rgba(233, 236, 242, 0.86);
+    -fx-prompt-text-fill: rgba(233, 236, 242, 0.45);
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 13px;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.separator .line {
+    -fx-border-color: rgba(255,255,255,0.10);
+}
+
+/* --- Scoring tiles preview (right dashboard 2x2) --- */
+.scoring-preview {
+    -fx-padding: 6 0 0 0;
+    -fx-alignment: center;
+}
+
+.scoring-tile-slot {
+    -fx-background-color: rgba(10, 14, 20, 0.55);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-padding: 8;
+}
+
+.scoring-tile-slot.inactive {
+    -fx-border-color: rgba(233, 219, 183, 0.10);
+    -fx-background-color: rgba(10, 14, 20, 0.70);
+}
+
+.scoring-tile-slot.active {
+    -fx-border-color: rgba(227, 191, 85, 0.95);
+    -fx-effect: dropshadow(gaussian, rgba(227,191,85,0.28), 18, 0.25, 0, 0);
+}
+
+.scoring-tile-slot.inactive .image-view {
+    -fx-opacity: 0.35;
+}
+
+.scoring-tile-slot.active .image-view {
+    -fx-opacity: 1.0;
+}
+
+.scoring-round-box .label,
+.scoring-round-desc {
+    -fx-text-fill: #E9DBB7;
+}
+
+.game-header .label {
+    -fx-text-fill: #E9DBB7;
+}
+
+/* Scoring overlay */
+.scoring-board-overlay {
+    -fx-background-color: rgba(0,0,0,0.65);
+    -fx-alignment: center;
+}
+
+.scoring-board-card {
+    -fx-background-color: rgba(26,23,28,0.95);
+    -fx-background-radius: 14;
+    -fx-border-color: #2A262D;
+    -fx-border-radius: 14;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 18, 0.35, 0, 6);
+}
+
+/* Board */
+.board-scroll {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+    -fx-background: rgba(8, 10, 12, 0.92);
+    -fx-border-color: rgba(233,219,183,0.18);
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+}
+
+.board-scroll > .viewport {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-scroll > .viewport > * {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-scroll > .corner {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-scroll .scroll-bar:horizontal,
+.board-scroll .scroll-bar:vertical {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-scroll .scroll-bar .track {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-grid {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+}
+
+.board-cell,
+.state-cell {
+    -fx-fill: rgba(0,0,0,0.14);
+    -fx-stroke: rgba(233,219,183,0.16);
+    -fx-stroke-width: 0.6;
+}
+
+.board-cell:hover,
+.state-cell:hover {
+    -fx-stroke: rgba(233,219,183,0.38);
+}
+
+.board-cell.board-cell-highlighted,
+.state-cell.state-cell-highlighted {
+    -fx-stroke: #2ecc71;
+    -fx-stroke-width: 3;
+    -fx-effect: dropshadow(gaussian, rgba(46,204,113,0.55), 10, 0.65, 0, 0);
+}
+
+.board-cell.board-cell-highlighted:hover,
+.state-cell.state-cell-highlighted:hover {
+    -fx-stroke: #2ecc71;
+}
+
+.pending-tile {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.85), 18, 0.7, 0, 0);
+}
+
+/* finish-build-button removed to match default game-button visuals */
+
+/* Header chips */
+.game-header .game-text {
+    -fx-background-color: rgba(0,0,0,0.18);
+    -fx-background-radius: 999;
+    -fx-padding: 4 10;
+}
+
+.game-header .game-accent {
+    -fx-opacity: 0.35;
+}
+
+/* Tabs */
+.tab-pane {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 8 0;
+    -fx-pref-height: 52;
+    -fx-min-height: 52;
+    -fx-max-height: 52;
+    visibility: visible;
+}
+    /* Center bottom tabs (header buttons) instead of left-aligned */
+    .tab-pane .tab-header-area .headers-region {
+        -fx-alignment: center;
+    }
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: rgba(18, 22, 28, 0.92);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(233,219,183,0.22);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.tab-pane .tab {
+    -fx-background-color: rgba(18, 22, 28, 0.92);
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: rgba(233,219,183,0.16);
+    -fx-border-width: 1;
+    -fx-border-radius: 10 10 0 0;
+    -fx-padding: 6 14;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+}
+
+.bottom-tabs .tab .tab-label {
+    -fx-text-fill: #E9DBB7;
+}
+
+/* Bottom tabs: browser-like tab strip */
+.bottom-tabs .tab-header-area {
+    -fx-padding: 0 8 6 8;
+    -fx-background-color: rgba(12, 16, 22, 0.85);
+    -fx-border-color: rgba(233,219,183,0.12);
+    -fx-border-width: 0 0 1 0;
+}
+
+.bottom-tabs .tab-header-area .headers-region .tab {
+    -fx-background-color: rgba(20, 26, 34, 0.95);
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: rgba(233,219,183,0.18);
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 10 10 0 0;
+    -fx-padding: 6 16 8 16;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+.bottom-tabs .tab-header-area .headers-region .tab:hover {
+    -fx-background-color: rgba(28, 36, 46, 0.98);
+    -fx-border-color: rgba(233,219,183,0.28);
+}
+
+.bottom-tabs .tab-header-area .headers-region .tab:selected {
+    -fx-background-color: rgba(10, 14, 20, 0.98);
+    -fx-border-color: rgba(233,219,183,0.35);
+    -fx-border-width: 1 1 0 1;
+}
+
+.bottom-tabs .tab-content-area {
+    -fx-background-color: rgba(12, 16, 22, 0.92);
+    -fx-border-color: rgba(233,219,183,0.12);
+    -fx-border-width: 0 1 1 1;
+    -fx-background-radius: 0 0 12 12;
+    -fx-border-radius: 0 0 12 12;
+    -fx-pref-height: 260;
+    -fx-min-height: 260;
+    -fx-max-height: 260;
+}
+
+.bottom-tabs {
+    -fx-pref-height: 320;
+    -fx-min-height: 320;
+    -fx-max-height: 320;
+}
+
+/* Scoring Tiles tab: keep ScrollPane background transparent (avoid default white viewport). */
+.bottom-tabs .transparent-scroll,
+.bottom-tabs .transparent-scroll > .viewport,
+.bottom-tabs .transparent-scroll > .scroll-bar,
+.bottom-tabs .transparent-scroll > .corner {
+    -fx-background-color: transparent;
+}
+
+.tab-pane:focused .tab-header-area .headers-region .tab:selected {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.gold-delta {
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 2;
+}
+
+/* Volume/settings UI - match in-game HUD look */
+.volume-button {
+    /* align with .game-button visuals */
+    -fx-background-color: rgba(230, 236, 248, 0.88);
+    -fx-text-fill: #121622;
+    -fx-font-size: 16px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 6 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 10, 0.25, 0, 3);
+}
+
+.volume-button:hover {
+    -fx-background-color: rgba(245, 247, 252, 0.95);
+}
+
+.settings-panel {
+    /* align with bottom tabs content surface */
+    -fx-background-color: rgba(12, 16, 22, 0.92);
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(233,219,183,0.12);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 14, 0.35, 0, 4);
+    -fx-max-width: 220px;
+
+    /* compact height: match the icon button */
+    -fx-padding: 6 10;
+    -fx-min-height: 34px;
+    -fx-pref-height: 34px;
+    -fx-max-height: 34px;
+}
+
+.volume-value {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-size: 12px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-min-width: 42px;
+    -fx-alignment: center-right;
+}
+
+.settings-panel .slider {
+    -fx-padding: 0;
+}
+
+.settings-panel .slider .track {
+    -fx-background-color: rgba(8, 10, 12, 0.92);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(233,219,183,0.18);
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.settings-panel .slider .thumb {
+    -fx-background-color: rgba(230, 236, 248, 0.95);
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 6, 0.25, 0, 2);
+}
+
+/* =============================================================================
+   TILE CARD - Medieval Board Game Style (Isle of Skye Theme)
+   ============================================================================= */
+
+/* Parchment-like warm dark surface with subtle texture via gradients */
+.tile-card {
+    -fx-background-color: 
+        /* Noise-like texture via overlapping gradients */
+        linear-gradient(to bottom right, rgba(58, 48, 32, 0.12) 0%, transparent 50%, rgba(38, 30, 20, 0.15) 100%),
+        linear-gradient(to top left, rgba(68, 55, 38, 0.10) 0%, transparent 60%, rgba(45, 36, 24, 0.12) 100%),
+        /* Base parchment color - warm dark brown */
+        linear-gradient(to bottom, #3d3225 0%, #2e2619 50%, #2a221a 100%);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(139, 115, 85, 0.45);
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 12, 0.3, 0, 4);
+    -fx-cursor: hand;
+}
+
+/* Hover effect: card lifts, shadow softens, subtle glow */
+.tile-card:hover {
+    -fx-background-color: 
+        linear-gradient(to bottom right, rgba(68, 55, 38, 0.15) 0%, transparent 50%, rgba(48, 38, 26, 0.18) 100%),
+        linear-gradient(to top left, rgba(78, 62, 42, 0.12) 0%, transparent 60%, rgba(55, 44, 30, 0.14) 100%),
+        linear-gradient(to bottom, #453828 0%, #362c1f 50%, #302618 100%);
+    -fx-border-color: rgba(213, 166, 73, 0.55);
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.25), 18, 0.4, 0, 2);
+    -fx-translate-y: -3;
+}
+
+/* Selected state: golden glowing border with pulse animation */
+.tile-card-selected {
+    -fx-background-color: 
+        linear-gradient(to bottom right, rgba(213, 166, 73, 0.08) 0%, transparent 50%, rgba(180, 140, 60, 0.10) 100%),
+        linear-gradient(to top left, rgba(200, 155, 70, 0.06) 0%, transparent 60%, rgba(170, 130, 55, 0.08) 100%),
+        linear-gradient(to bottom, #3d3225 0%, #2e2619 50%, #2a221a 100%);
+    -fx-border-color: #D5A649;
+    -fx-border-width: 3;
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.65), 22, 0.55, 0, 0);
+}
+
+/* Discard selected state - marked for discard with reddish tint */
+.tile-card-discard {
+    -fx-background-color: 
+        linear-gradient(to bottom right, rgba(139, 69, 69, 0.12) 0%, transparent 50%, rgba(100, 50, 50, 0.15) 100%),
+        linear-gradient(to top left, rgba(120, 60, 60, 0.10) 0%, transparent 60%, rgba(90, 45, 45, 0.12) 100%),
+        linear-gradient(to bottom, #3a2a28 0%, #2e2220 50%, #28201c 100%);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(180, 100, 80, 0.75);
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(gaussian, rgba(180, 100, 80, 0.45), 18, 0.45, 0, 0);
+    -fx-cursor: hand;
+}
+
+/* =============================================================================
+   DISCARD X BUTTON - Top-Right Corner Icon
+   ============================================================================= */
+
+/* Small X button in top-right corner of tile card */
+.discard-x-button {
+    -fx-min-width: 28;
+    -fx-pref-width: 28;
+    -fx-max-width: 28;
+    -fx-min-height: 28;
+    -fx-pref-height: 28;
+    -fx-max-height: 28;
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 50%, rgba(45, 35, 28, 0.92) 0%, rgba(35, 28, 22, 0.95) 100%),
+        linear-gradient(to bottom, rgba(100, 75, 55, 0.7) 0%, rgba(70, 52, 38, 0.8) 100%);
+    -fx-background-radius: 4;
+    -fx-border-color: rgba(120, 90, 65, 0.55);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 4, 0.25, 0, 1);
+}
+
+.discard-x-button .discard-x-icon {
+    -fx-font-family: "Arial", "Helvetica", "Sans-Serif";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(180, 140, 110, 0.7);
+}
+
+.discard-x-button:hover {
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 50%, rgba(80, 45, 40, 0.95) 0%, rgba(60, 35, 30, 0.98) 100%),
+        linear-gradient(to bottom, rgba(150, 85, 75, 0.8) 0%, rgba(110, 62, 55, 0.9) 100%);
+    -fx-border-color: rgba(180, 100, 85, 0.75);
+    -fx-effect: dropshadow(gaussian, rgba(160, 80, 70, 0.35), 8, 0.35, 0, 1);
+}
+
+.discard-x-button:hover .discard-x-icon {
+    -fx-text-fill: rgba(220, 160, 140, 0.95);
+}
+
+/* Selected/Active state - deep red glow */
+.discard-x-button-active {
+    -fx-background-color: 
+        radial-gradient(center 50% 50%, radius 50%, rgba(120, 45, 40, 0.95) 0%, rgba(85, 32, 28, 0.98) 100%),
+        linear-gradient(to bottom, rgba(180, 75, 65, 0.9) 0%, rgba(140, 55, 48, 0.95) 100%);
+    -fx-border-color: rgba(200, 90, 75, 0.9);
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(180, 70, 60, 0.6), 10, 0.45, 0, 0);
+}
+
+.discard-x-button-active .discard-x-icon {
+    -fx-text-fill: rgba(255, 210, 195, 0.98);
+}
+
+/* =============================================================================
+   DISCARDED OVERLAY - Text overlay when tile is marked as discarded
+   ============================================================================= */
+
+.discarded-overlay {
+    -fx-background-color: transparent;
+    -fx-padding: 6 14;
+}
+
+.discarded-overlay-text {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D85050;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 4, 0.7, 0, 2);
+}
+
+/* =============================================================================
+   PRICE STEPPER - Medieval +/- Button Control
+   ============================================================================= */
+
+.price-stepper-container {
+    -fx-alignment: center;
+    -fx-spacing: 4;
+    -fx-padding: 4 0 0 0;
+}
+
+/* Stepper buttons (+ and -) - engraved metal look */
+.price-stepper-button {
+    -fx-min-width: 28;
+    -fx-pref-width: 28;
+    -fx-max-width: 28;
+    -fx-min-height: 26;
+    -fx-pref-height: 26;
+    -fx-max-height: 26;
+    -fx-background-color: 
+        /* Top highlight */
+        linear-gradient(to bottom, rgba(180, 145, 100, 0.25) 0%, transparent 40%),
+        /* Engraved metal base */
+        linear-gradient(to bottom, #3a3028 0%, #2e261f 40%, #252018 100%);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(160, 130, 95, 0.5);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0.25, 0, 2),
+                innershadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0.2, 0, 1);
+}
+
+.price-stepper-button .stepper-icon {
+    -fx-font-family: "Arial", "Helvetica", "Sans-Serif";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D5A649;
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.3), 2, 0.2, 0, 0);
+}
+
+/* Hover state - subtle glow */
+.price-stepper-button:hover {
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(213, 166, 73, 0.3) 0%, rgba(180, 140, 60, 0.1) 50%, transparent 100%),
+        linear-gradient(to bottom, #453828 0%, #382e24 40%, #2d2518 100%);
+    -fx-border-color: rgba(213, 166, 73, 0.7);
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.35), 8, 0.35, 0, 0),
+                innershadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0.2, 0, 1);
+}
+
+.price-stepper-button:hover .stepper-icon {
+    -fx-text-fill: #E8C05A;
+    -fx-effect: dropshadow(gaussian, rgba(232, 192, 90, 0.5), 4, 0.3, 0, 0);
+}
+
+/* Pressed state - inset look */
+.price-stepper-button:pressed {
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, transparent 50%),
+        linear-gradient(to bottom, #2a231c 0%, #252018 40%, #201a14 100%);
+    -fx-border-color: rgba(180, 145, 100, 0.6);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.35, 0, 2);
+    -fx-translate-y: 1;
+}
+
+.price-stepper-button:pressed .stepper-icon {
+    -fx-text-fill: #C49A40;
+}
+
+/* Disabled state */
+.price-stepper-button:disabled {
+    -fx-opacity: 0.35;
+    -fx-cursor: default;
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(80, 70, 60, 0.15) 0%, transparent 40%),
+        linear-gradient(to bottom, #2a2420 0%, #221e1a 40%, #1d1915 100%);
+    -fx-border-color: rgba(100, 85, 70, 0.3);
+}
+
+.price-stepper-button:disabled .stepper-icon {
+    -fx-text-fill: rgba(150, 120, 90, 0.5);
+    -fx-effect: none;
+}
+
+/* Center coin value display */
+.price-stepper-value {
+    -fx-min-width: 95;
+    -fx-pref-width: 95;
+    -fx-alignment: center;
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 30%, transparent 100%),
+        linear-gradient(to bottom, #1a1612 0%, #201a15 50%, #1c1812 100%);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(100, 80, 55, 0.5);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-padding: 4 12;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.45), 4, 0.3, 0, 1);
+    -fx-cursor: text;
+}
+
+/* Editable text field inside value display */
+.price-stepper-value-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #D5A649;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-pref-width: 38;
+    -fx-max-width: 38;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.4), 3, 0.25, 0, 0);
+}
+
+.price-stepper-value-field:focused {
+    -fx-background-color: rgba(213, 166, 73, 0.08);
+    -fx-background-radius: 3;
+    -fx-border-color: rgba(213, 166, 73, 0.3);
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+}
+
+.price-stepper-value-text {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D5A649;
+    -fx-effect: dropshadow(gaussian, rgba(213, 166, 73, 0.4), 3, 0.25, 0, 0);
+}
+
+/* Coin icon in stepper */
+.price-stepper-coin {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(213, 166, 73, 0.75);
+    -fx-padding: 0 2 0 0;
+}
+
+/* Stepper disabled when tile is discarded */
+.price-stepper-container-disabled {
+    -fx-opacity: 0.3;
+}
+
+.price-stepper-container-disabled .price-stepper-button {
+    -fx-cursor: default;
+}
+
+/* =============================================================================
+   TILE CARD TITLE (optional header inside card)
+   ============================================================================= */
+
+.tile-card-title {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(233, 219, 183, 0.85);
+    -fx-padding: 0 0 6 0;
+}
+
+/* =============================================================================
+   CONFIRM PRICES BUTTON (Bottom Action Bar)
+   ============================================================================= */
+
+.confirm-prices-button {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(233, 219, 183, 0.95);
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(60, 48, 35, 0.95), rgba(45, 35, 25, 0.95)),
+        linear-gradient(to bottom, rgba(80, 62, 45, 0.5), rgba(50, 38, 28, 0.5));
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(160, 130, 95, 0.4);
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-padding: 18 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 20, 0.3, 0, 8);
+}
+
+/* Disabled state - dimmed, no glow */
+.confirm-prices-button:disabled,
+.confirm-prices-button-disabled {
+    -fx-opacity: 0.5;
+    -fx-text-fill: rgba(233, 219, 183, 0.45);
+    -fx-cursor: default;
+}
+
+/* Enabled state - gold glow and pulse */
+.confirm-prices-button-enabled {
+    -fx-border-color: rgba(227, 191, 85, 0.8);
+    -fx-effect: 
+        dropshadow(gaussian, rgba(227,191,85,0.4), 24, 0.45, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.65), 20, 0.3, 0, 8);
+    -fx-opacity: 1.0;
+}
+
+/* Hover when enabled - stronger glow */
+.confirm-prices-button-enabled:hover {
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(70, 56, 40, 0.98), rgba(50, 40, 28, 0.98)),
+        linear-gradient(to bottom, rgba(90, 72, 55, 0.6), rgba(60, 48, 38, 0.6));
+    -fx-border-color: rgba(227, 191, 85, 1);
+    -fx-effect: 
+        dropshadow(gaussian, rgba(227,191,85,0.6), 28, 0.5, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.65), 20, 0.3, 0, 8);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Press animation */
+.confirm-prices-button-enabled:pressed {
+    -fx-translate-y: 2;
+    -fx-effect: 
+        dropshadow(gaussian, rgba(227,191,85,0.5), 20, 0.4, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.8), 12, 0.4, 0, 4);
+}
+
+/* =============================================================================
+   PASS BUTTON (Subtle secondary action)
+   ============================================================================= */
+
+.pass-button-subtle {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: rgba(233, 219, 183, 0.5);
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(160, 130, 95, 0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.pass-button-subtle:hover {
+    -fx-text-fill: rgba(233, 219, 183, 0.75);
+    -fx-border-color: rgba(160, 130, 95, 0.5);
+    -fx-background-color: rgba(60, 48, 35, 0.3);
+}
+
+.pass-button-subtle:pressed {
+    -fx-text-fill: rgba(233, 219, 183, 0.9);
+    -fx-border-color: rgba(160, 130, 95, 0.7);
+    -fx-background-color: rgba(60, 48, 35, 0.5);
+}
+
+/* =============================================================================
+   MARKET TILE CARD (Buy Phase - same style as pricing tiles)
+   ============================================================================= */
+
+.market-tile-card {
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(50, 40, 30, 0.95), rgba(35, 28, 20, 0.95)),
+        linear-gradient(to bottom, rgba(70, 55, 40, 0.4), rgba(40, 32, 24, 0.4));
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(120, 100, 75, 0.6);
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+    -fx-padding: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 18, 0.35, 0, 6);
+    -fx-cursor: hand;
+}
+
+.market-tile-card:hover {
+    -fx-translate-y: -4;
+    -fx-effect: 
+        dropshadow(gaussian, rgba(0,0,0,0.7), 22, 0.4, 0, 10),
+        dropshadow(gaussian, rgba(227,191,85,0.15), 15, 0.2, 0, 0);
+    -fx-border-color: rgba(180, 150, 110, 0.7);
+}
+
+/* Selected market tile - gold glow */
+.market-tile-card-selected {
+    -fx-background-color: 
+        linear-gradient(to bottom, rgba(50, 40, 30, 0.95), rgba(35, 28, 20, 0.95)),
+        linear-gradient(to bottom, rgba(70, 55, 40, 0.4), rgba(40, 32, 24, 0.4));
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(227, 191, 85, 0.9);
+    -fx-border-width: 3;
+    -fx-border-radius: 14;
+    -fx-padding: 12;
+    -fx-effect: 
+        dropshadow(gaussian, rgba(227,191,85,0.5), 25, 0.5, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.65), 18, 0.35, 0, 6);
+    -fx-cursor: hand;
+}
+
+.market-tile-card-selected:hover {
+    -fx-effect: 
+        dropshadow(gaussian, rgba(227,191,85,0.65), 30, 0.55, 0, 0),
+        dropshadow(gaussian, rgba(0,0,0,0.7), 22, 0.4, 0, 10);
+}
+
+/* Market tile seller info */
+.market-tile-seller {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(233, 219, 183, 0.7);
+}
+
+/* Market tile price */
+.market-tile-price {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(227, 191, 85, 0.95);
+}
+
+/* Green BUY button on each tile card */
+.buy-tile-button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+    -fx-text-fill: white;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0.2, 0, 2);
+}
+
+.buy-tile-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #66BB6A, #43A047);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 6, 0.3, 0, 2);
+}
+
+.buy-tile-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #388E3C, #2E7D32);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0.1, 0, 1);
+}
+
+.buy-tile-button:disabled {
+    -fx-background-color: rgba(120, 120, 120, 0.6);
+    -fx-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-opacity: 0.7;
+}
+
+/* =============================================================================
+   PHASE STATUS LABEL (Player Panel)
+   ============================================================================= */
+
+.phase-status-label {
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 11px;
+    -fx-font-weight: normal;
+    -fx-padding: 2 0 0 0;
+}
+
+.phase-status-waiting {
+    -fx-text-fill: rgba(233, 219, 183, 0.55);
+}
+
+.phase-status-ready {
+    -fx-text-fill: rgba(227, 191, 85, 0.95);
+    -fx-font-weight: bold;
+}

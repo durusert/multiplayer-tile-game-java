@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frontend.ui.controllers.LobbyController"
+            prefWidth="1000" prefHeight="700"
+            stylesheets="/styles/lobby.css"
+            styleClass="lobby-root">
+
+    <!-- Settings (gear + volume) top-right overlay -->
+    <top>
+        <StackPane pickOnBounds="false">
+            <BorderPane.margin>
+                <Insets top="14" right="14" bottom="0" left="0" />
+            </BorderPane.margin>
+            <children>
+                <StackPane alignment="TOP_RIGHT" pickOnBounds="false">
+                    <children>
+                        <!-- overlay container: gear is anchored top-right; panel pops left of it without taking layout space -->
+                        <Button fx:id="settingsButton" text="🔊" onAction="#onToggleSettings" styleClass="volume-button" />
+                        <HBox fx:id="settingsPanel" visible="false" managed="false" spacing="10" styleClass="settings-panel" pickOnBounds="false"
+                              StackPane.alignment="TOP_RIGHT">
+                            <StackPane.margin>
+                                <!-- shift left so it 'pops' beside the gear -->
+                                <Insets top="0" right="46" bottom="0" left="0" />
+                            </StackPane.margin>
+                            <children>
+                                <Slider fx:id="musicVolumeSlider" min="0.0" max="1.0" blockIncrement="0.05" majorTickUnit="0.25" />
+                                <Label fx:id="musicVolumeValue" text="0" styleClass="volume-value" />
+                            </children>
+                        </HBox>
+                    </children>
+                </StackPane>
+            </children>
+        </StackPane>
+    </top>
+
+    <!-- Hauptbereich: links Spieler, rechts Buttons -->
+    <center>
+        <HBox alignment="TOP_CENTER" spacing="40">
+            <padding>
+                <Insets top="40" right="40" bottom="20" left="40" />
+            </padding>
+            <children>
+
+                <!-- Spieler-Liste links -->
+                <VBox spacing="12" alignment="TOP_LEFT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label text="Lobby" styleClass="lobby-title-label" />
+                        <Label fx:id="lobbyInfo" text="" styleClass="lobby-room-label" />
+
+                        <ListView fx:id="playersList"
+                                  VBox.vgrow="ALWAYS"
+                                  styleClass="players-list" />
+
+                        <!-- Farbwahl-Bereich: fester Color-Picker im Lobby-Stil -->
+                        <VBox spacing="6" alignment="TOP_LEFT">
+                            <children>
+                                <Label text="Choose your color" styleClass="color-picker-label" />
+                                                                <HBox spacing="10" alignment="CENTER_LEFT" minHeight="30" styleClass="color-picker-container">
+                                                                    <children>
+                                                                        <!-- Farbkreise als Regions, Buttons/Clicks macht der Controller -->
+                                                                        <Region fx:id="colorRedRegion"   prefWidth="26" prefHeight="26" minWidth="26" minHeight="26" styleClass="color-dot color-red" />
+                                                                        <Region fx:id="colorGreenRegion" prefWidth="26" prefHeight="26" minWidth="26" minHeight="26" styleClass="color-dot color-green" />
+                                                                        <Region fx:id="colorBlueRegion"  prefWidth="26" prefHeight="26" minWidth="26" minHeight="26" styleClass="color-dot color-blue" />
+                                                                        <Region fx:id="colorYellowRegion" prefWidth="26" prefHeight="26" minWidth="26" minHeight="26" styleClass="color-dot color-yellow" />
+                                                                        <Region fx:id="colorWhiteRegion" prefWidth="26" prefHeight="26" minWidth="26" minHeight="26" styleClass="color-dot color-white" />
+                                                                    </children>
+                                                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Buttons rechts (Ready/Leave) -->
+                <VBox spacing="12" alignment="TOP_RIGHT">
+                    <children>
+                        <Button text="Ready"
+                                fx:id="readyButton"
+                                onAction="#onReady"
+                                styleClass="lobby-main-button" />
+                        <Button text="Leave"
+                                fx:id="leaveButton"
+                                onAction="#onLeave"
+                                styleClass="lobby-main-button" />
+                        <Button text="Add AI"
+                                fx:id="addAiButton"
+                                onAction="#onAddAi"
+                                styleClass="lobby-main-button" />
+                        <Button text="Remove AI"
+                                fx:id="removeAiButton"
+                                onAction="#onRemoveAi"
+                                styleClass="lobby-main-button" />
+                    </children>
+                </VBox>
+
+            </children>
+        </HBox>
+    </center>
+
+    <!-- Chat unten -->
+    <bottom>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="0" right="40" bottom="40" left="40" />
+            </padding>
+            <children>
+                <VBox fx:id="chatContainer" styleClass="chat-container" prefHeight="260">
+                    <children>
+                        <TextArea fx:id="chatArea"
+                                  editable="false"
+                                  wrapText="true"
+                                  VBox.vgrow="ALWAYS"
+                                  styleClass="chat-area" />
+
+                        <HBox spacing="10">
+                            <children>
+                                <TextField fx:id="messageField"
+                                           promptText="Input.."
+                                           HBox.hgrow="ALWAYS"
+                                           disable="true"
+                                           styleClass="chat-input-field" />
+                                <Button text="Send"
+                                        fx:id="sendButton"
+                                        onAction="#onSend"
+                                        defaultButton="true"
+                                        disable="true"
+                                        styleClass="lobby-send-button" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </bottom>
+
+</BorderPane>

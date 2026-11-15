@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<StackPane xmlns="http://javafx.com/javafx/24"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="frontend.ui.controllers.GameOverController"
+           stylesheets="/styles/gameover.css"
+           styleClass="gameover-root"
+           prefWidth="1200"
+           prefHeight="800">
+
+    <!-- Zentrales schwarzes Panel -->
+    <VBox spacing="20"
+          alignment="CENTER"
+          maxWidth="640"
+          maxHeight="360"
+          styleClass="gameover-panel">
+
+        <Label text="GAME OVER"
+               styleClass="gameover-label"
+               style="-fx-font-size: 48;" />
+
+        <Label fx:id="winnerLabel"
+               text="The Winner is: PlayerName"
+               styleClass="gameover-label"
+               style="-fx-font-size: 26;" />
+
+        <VBox fx:id="placementsBox"
+              spacing="8"
+              alignment="CENTER"
+              styleClass="placements-box" />
+
+        <Button fx:id="backToMainMenuButton"
+                text="Back to Main Menu"
+                styleClass="gameover-button"
+                onAction="#onBackToMainMenu" />
+
+    </VBox>
+
+</StackPane>

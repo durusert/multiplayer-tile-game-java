@@ -1,0 +1,272 @@
+/* Lobby styles matching the new reference layout */
+
+/* Hintergrundbild für die Lobby */
+.lobby-root {
+    -fx-background-color: linear-gradient(to bottom right, #171c2c, #26344a, #4b3f2f);
+}
+
+/* Volume/settings UI */
+.volume-button {
+    -fx-background-color: rgba(26, 23, 28, 0.72);
+    -fx-text-fill: #D5A649;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 6 10;
+    -fx-border-color: rgba(213,166,73,0.7);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.35, 0, 3);
+}
+
+.volume-button:hover {
+    -fx-background-color: rgba(43, 38, 44, 0.75);
+}
+
+.settings-panel {
+    -fx-background-color: rgba(26, 23, 28, 0.86);
+    -fx-background-radius: 12;
+    -fx-padding: 10 12 12 12;
+    -fx-border-color: rgba(213,166,73,0.7);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 14, 0.35, 0, 4);
+    -fx-max-width: 220px;
+}
+
+
+.volume-value {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-size: 13px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-min-width: 42px;
+    -fx-alignment: center-right;
+}
+
+.settings-panel .slider .track {
+    -fx-background-color: rgba(43, 38, 44, 0.72);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(213,166,73,0.55);
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.settings-panel .slider .thumb {
+    -fx-background-color: #D5A649;
+    -fx-background-radius: 10;
+}
+
+/* Titel "Lobby" links oben über der Spielerliste */
+.lobby-title-label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 6, 0.3, 0, 2);
+    -fx-padding: 0 0 8 4;
+}
+
+.lobby-room-label {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 6, 0.3, 0, 2);
+    -fx-padding: 0 0 10 4;
+}
+
+.lobby-dm-button {
+    -fx-background-color: #1f1b22;
+    -fx-text-fill: #f2f2f2;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8;
+    -fx-font-size: 11px;
+}
+
+/* Spieler-Liste links: jede Zelle wie graue Box im Screenshot */
+.players-list {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 0 0;
+}
+
+/* Die eigentliche Card-Optik steckt im HBox-Container .player-cell */
+.players-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 4 0;
+}
+
+.players-list .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-effect: null;
+}
+
+/* HBox aus der CellFactory (Container für Name + Farbbadge) */
+.player-cell {
+    -fx-background-color: #1A171C;          /* Panel-Farbe wie im MainMenu */
+    -fx-background-radius: 12;
+    -fx-padding: 10 18;
+    -fx-border-color: #D5A649;              /* goldener Rand */
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, #2C2115, 12, 0.4, 0, 4);
+}
+
+/* Label für den Spielernamen */
+.player-name {
+    -fx-text-fill: #D5A649;                 /* golden wie Username/Buttons im MainMenu */
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Label für Farbwahl */
+.color-picker-label {
+    -fx-text-fill: #E9DBB7;
+    -fx-font-size: 13px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-padding: 8 0 2 2;
+}
+
+/* Container für Farbpunkte */
+.color-picker-container {
+    -fx-padding: 4 0 0 0;
+}
+
+/* Basis-Stil für Farbpunkte als runde ToggleButtons */
+.color-dot {
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+    -fx-background-radius: 13;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-border-radius: 13;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+/* Konkrete Farben, passend zu den Spielerfarben */
+.color-red {
+    -fx-background-color: #ff3b30;
+}
+
+.color-green {
+    -fx-background-color: #34c759;
+}
+
+.color-blue {
+    -fx-background-color: #007aff;
+}
+
+.color-yellow {
+    -fx-background-color: #ffcc00;
+}
+
+.color-white {
+    -fx-background-color: #ffffff;
+}
+
+/* Regions brauchen oft eine Background-Füllung; sorgt für zuverlässige Darstellung */
+.color-dot.color-red,
+.color-dot.color-green,
+.color-dot.color-blue,
+.color-dot.color-yellow,
+.color-dot.color-white {
+    -fx-background-radius: 13;
+    -fx-border-radius: 13;
+}
+
+/* Ausgewählter Farbpunkt: goldener Ring im Lobby-Stil */
+.color-dot-selected {
+    /* Make the gold ring unmistakable: draw it outside the filled circle */
+    -fx-border-color: #D5A649;
+    -fx-border-width: 3;
+    -fx-border-insets: -2;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(213,166,73,0.55), 12, 0.35, 0, 0);
+}
+
+/* Chat-Container rechts an das Player-Design angelehnt */
+.chat-container {
+    -fx-background-color: #1A171C;          /* gleiche Panel-Farbe wie .player-cell */
+    -fx-background-radius: 16;
+    -fx-padding: 12 16 16 16;               /* enger am Inhalt: weniger Spielraum für "weiße" Lücken */
+    -fx-border-color: #D5A649;              /* goldener Rand exakt um den Container */
+    -fx-border-radius: 16;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, #2C2115, 18, 0.4, 0, 6);
+}
+
+.chat-area {
+    -fx-control-inner-background: #2B262C;  /* dunkler Hintergrund wie Inputs im MainMenu */
+    -fx-text-fill: #D5A649;                 /* Chat-Text in Gold */
+    -fx-prompt-text-fill: #8B6A2B;          /* dezenter Placeholder-Ton */
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-padding: 0 0 6 0;                   /* etwas weniger Abstand: Border näher am Inhalt */
+    -fx-border-color: #D5A649;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.chat-input-field {
+    -fx-background-color: #2B262C;          /* wie Textfeld im MainMenu */
+    -fx-background-radius: 10;
+    -fx-padding: 10 10 10 10;               /* mehr Abstand im Input-Feld */
+    -fx-text-fill: #D5A649;                 /* Eingabetext in Gold */
+    -fx-prompt-text-fill: #8B6A2B;          /* Placeholder wie im MainMenu */
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-size: 14px;
+    -fx-border-color: #D5A649;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.lobby-send-button {
+    /* An den Connect-Button angelehnt, aber kleiner */
+    -fx-background-color: #D5A649;
+    -fx-text-fill: #2B262C;
+    -fx-font-size: 13px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif";
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 6 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #2C2115, 8, 0.3, 0, 3);
+}
+
+.lobby-send-button:hover {
+    -fx-background-color: #e3ba61;
+}
+
+.lobby-send-button:pressed {
+    -fx-background-color: #bf9240;
+    -fx-effect: dropshadow(gaussian, #2C2115, 4, 0.3, 0, 1);
+}
+
+/* Leave / Ready Buttons unten links/rechts */
+.lobby-main-button {
+    /* Optik 1:1 wie mainmenu-button (Connect) */
+    -fx-background-color: #D5A649; /* Highlight-Gold wie im MainMenu */
+    -fx-text-fill: #2B262C;        /* dunkler Button-Text */
+    -fx-font-size: 14px;
+    -fx-font-family: "Cinzel", "Cinzel Decorative", "Serif"; /* gleicher Font wie Connect */
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 28 8 28;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #2C2115, 10, 0.3, 0, 3); /* gleicher Shadow wie Connect */
+}
+
+.lobby-main-button:hover {
+    -fx-background-color: #e3ba61; 
+}
+
+.lobby-main-button:pressed {
+    -fx-background-color: #bf9240; 
+    -fx-effect: dropshadow(gaussian, #2C2115, 4, 0.3, 0, 1);
+}
